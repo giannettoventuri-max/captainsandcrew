@@ -6,6 +6,10 @@ budget e indicizzazione dei prodotti.
 **Leggere prima [`RELAZIONE.md`](RELAZIONE.md).** Contiene lo stato
 dell'analisi, cosa è già stabilito e cosa richiede accesso ai dati.
 
+**Per completare l'analisi da una sessione con accessi** (SSH a tuttoluce.com e
+API di Search Console): [`PROMPT_LOCALE.md`](PROMPT_LOCALE.md) è il prompt
+pronto da eseguire.
+
 Requisiti: Python 3.9+, nessuna dipendenza esterna. Tutti gli strumenti sono
 in **sola lettura**: non modificano il sito.
 

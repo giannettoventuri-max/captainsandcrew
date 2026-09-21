@@ -267,6 +267,14 @@ numeri reali e aggiorno questa relazione.
 Python 3 senza dipendenze esterne. Serve solo copiare `seo/analisi/` sul
 server.
 
+**C — una sessione con gli accessi.** Se una sessione di Claude Code in locale
+ha SSH verso tuttoluce.com e le credenziali API di Search Console,
+`PROMPT_LOCALE.md` è il prompt completo da eseguire: contiene i risultati già
+acquisiti, i vincoli, le fasi di raccolta e i limiti reali delle API GSC (il
+rapporto "Pagine" e le Statistiche di scansione **non** sono esposti via API;
+Search Analytics offre però 16 mesi di storico, che rende ricostruibile il
+confronto prima/dopo).
+
 In entrambi i casi la produzione resta invariata finché i dati non ci sono,
 come richiesto.
 
@@ -277,6 +285,7 @@ come richiesto.
 ```
 seo/
 ├── RELAZIONE.md                questo documento
+├── PROMPT_LOCALE.md            prompt per una sessione con accessi SSH + API GSC
 ├── raccolta_dati.md            comandi per raccogliere i dati (sola lettura)
 ├── robots/
 │   ├── robots_proposto.txt     candidato corretto — NON pubblicare prima delle verifiche
