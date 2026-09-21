@@ -1,0 +1,54 @@
+User-agent: *
+
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /wp-includes/
+Disallow: /trackback/
+Disallow: /feed/
+Disallow: /comments/
+Disallow: /author/
+Disallow: /xmlrpc.php
+
+Disallow: /wp-json/
+
+Disallow: /?s=
+Disallow: /search/
+
+Disallow: /carrello/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /pagamento/
+Disallow: /il-mio-account/
+Disallow: /account/
+
+Disallow: /?add-to-cart=
+Disallow: /&add-to-cart=
+Disallow: /?removed_item=
+Disallow: /&removed_item=
+
+Disallow: /?orderby=
+Disallow: /&orderby=
+
+Disallow: /?filter_
+Disallow: /&filter_
+Disallow: /?filtering=
+Disallow: /&filtering=
+
+Disallow: /?yith_wcan=
+Disallow: /&yith_wcan=
+
+Disallow: /?min_price=
+Disallow: /&min_price=
+Disallow: /?max_price=
+Disallow: /&max_price=
+
+Disallow: /?products-per-page=
+Disallow: /&products-per-page=
+
+Allow: /wp-content/uploads/
+Allow: /wp-content/cache/
+Allow: /wp-includes/js/
+Allow: /.js$
+Allow: /.css$
+
+Sitemap: https://www.tuttoluce.com/sitemap_index.xml

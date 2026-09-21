@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+# Output delle analisi sui dati reali: non vanno versionati.
+url_da_log.txt
+url_sitemap.txt
+robots_attuale.txt
+*_export.csv

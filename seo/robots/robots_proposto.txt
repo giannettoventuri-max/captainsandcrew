@@ -1,0 +1,176 @@
+# ==========================================================================
+# robots.txt PROPOSTO per www.tuttoluce.com
+#
+# !! NON PUBBLICARE COSI' COM'E' !!
+#
+# Questo file e' un CANDIDATO da validare, non una configurazione pronta.
+# Prima della pubblicazione occorre:
+#   1. confermare gli slug reali con:  analizza_log.py --scopri
+#   2. verificare che non blocchi URL utili con:
+#        robots_check.py --robots attuale.txt --confronta robots_proposto.txt \
+#                        --urls url_da_log.txt
+#      Il comando esce con codice 2 se qualche URL utile risulta bloccata.
+#   3. verificare se YITH ha le "pretty URL" attive (vedi NOTE_REGOLE.md,
+#      punto 12): in quel caso i filtri NON sono query string e nessuna
+#      regola qui sotto li intercetta.
+#
+# Principio guida: bloccare le URL inutili, mai le risorse di rendering.
+# Motivazione regola per regola in NOTE_REGOLE.md
+# ==========================================================================
+
+User-agent: *
+
+# --- Area amministrativa e endpoint di WordPress -------------------------
+# admin-ajax.php resta consentito: molti temi e YITH lo usano per caricare
+# griglie prodotto e filtri via AJAX. Bloccarlo puo' impedire a Google di
+# renderizzare correttamente le pagine categoria.
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+Disallow: /wp-login.php
+Disallow: /wp-register.php
+Disallow: /xmlrpc.php
+Disallow: /wp-cron.php
+Disallow: /wp-trackback.php
+
+# --- REST API -----------------------------------------------------------
+# Due forme della stessa cosa: permalink e query string.
+Disallow: /wp-json/
+Disallow: /*?rest_route=
+
+# --- wp-includes --------------------------------------------------------
+# Gli Allow sono PIU' LUNGHI del Disallow, quindi vincono (regola del match
+# piu' lungo). Servono: jQuery sta in /wp-includes/js/, e gli stili dei
+# blocchi Gutenberg stanno in /wp-includes/blocks/ e /wp-includes/css/.
+# Senza questi Allow si rischia di rompere il rendering.
+Disallow: /wp-includes/
+Allow: /wp-includes/js/
+Allow: /wp-includes/css/
+Allow: /wp-includes/blocks/
+
+# --- Feed, trackback, commenti ------------------------------------------
+# Serve SIA la forma alla radice SIA quella annidata: senza "/*/feed/"
+# restano scansionabili /categoria-prodotto/x/feed/ e /prodotto/y/feed/.
+Disallow: /feed/
+Disallow: /*/feed/
+Disallow: /comments/feed/
+Disallow: /*/trackback/
+Disallow: /trackback/
+Disallow: /*?replytocom=
+
+# --- Archivi autore -----------------------------------------------------
+# VERIFICARE lo slug reale: su installazioni italiane puo' essere /autore/.
+# Se l'archivio autore non esiste, queste righe sono inerti ma innocue.
+Disallow: /author/
+Disallow: /autore/
+
+# --- Ricerca interna ----------------------------------------------------
+# "/*?s=" copre la ricerca su qualunque percorso, non solo in home.
+# "/*&s=" copre il parametro in mezzo alla query string.
+Disallow: /*?s=
+Disallow: /*&s=
+Disallow: /search/
+Disallow: /ricerca/
+
+# --- Carrello, checkout, account ----------------------------------------
+# VERIFICARE quali di questi slug esistono davvero.
+Disallow: /carrello/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /pagamento/
+Disallow: /il-mio-account/
+Disallow: /mio-account/
+Disallow: /account/
+Disallow: /my-account/
+Disallow: /lista-dei-desideri/
+Disallow: /wishlist/
+Disallow: /confronta/
+Disallow: /compare/
+
+# --- Azioni WooCommerce sul carrello ------------------------------------
+# La forma "/*nome=" intercetta sia "?nome=" sia "&nome=" in qualunque
+# posizione. Le forme "/?nome=" (solo home) e "/&nome=" (impossibile)
+# della bozza precedente non bloccavano nulla sulle pagine reali.
+Disallow: /*add-to-cart=
+Disallow: /*removed_item=
+Disallow: /*remove_item=
+Disallow: /*undo_item=
+Disallow: /*?wc-ajax=
+Disallow: /*?wc-api=
+
+# --- Ordinamento e densita' di risultati --------------------------------
+Disallow: /*?orderby=
+Disallow: /*&orderby=
+Disallow: /*products-per-page=
+Disallow: /*?per_page=
+Disallow: /*&per_page=
+
+# --- Filtri: WooCommerce layered nav + YITH Ajax Navigation -------------
+# VERIFICARE i nomi reali dei parametri con:
+#   analizza_log.py --scopri        (sezione "nomi di parametri")
+# Se il sito usa filtri diversi da questi, vanno aggiunti qui.
+#
+# Se in futuro alcune combinazioni di filtro diventano landing SEO
+# intenzionali, aggiungere un Allow PIU' LUNGO del Disallow, esempio:
+#   Allow: /categoria-prodotto/lampadine/?filter_colore=bianco
+Disallow: /*filter_
+Disallow: /*query_type_
+Disallow: /*?filtering=
+Disallow: /*&filtering=
+Disallow: /*yith_wcan
+Disallow: /*min_price=
+Disallow: /*max_price=
+Disallow: /*rating_filter=
+Disallow: /*?product_visibility=
+Disallow: /*?on_sale=
+Disallow: /*?instock=
+Disallow: /*?stock_status=
+
+# --- Parametri di tracciamento ------------------------------------------
+# Creano duplicati esatti delle pagine utili. Il canonical li gestisce sul
+# piano dell'indice; qui evitiamo la scansione ripetuta.
+Disallow: /*?utm_
+Disallow: /*&utm_
+Disallow: /*?gclid=
+Disallow: /*?fbclid=
+Disallow: /*?msclkid=
+Disallow: /*?srsltid=
+
+# --- Anteprime e stati editoriali ---------------------------------------
+Disallow: /*?preview=
+Disallow: /*?preview_id=
+Disallow: /*?customize_changeset_uuid=
+Disallow: /*?elementor-preview=
+
+# ==========================================================================
+# NESSUNA REGOLA per prodotti, categorie, sottocategorie, marchi, pagine,
+# articoli e paginazione: sono deliberatamente a scansione libera.
+#
+# In particolare la PAGINAZIONE (/page/2/, ?paged=2) NON e' bloccata:
+# bloccarla impedirebbe a Google di scoprire i prodotti che stanno oltre
+# la prima pagina di categoria. E' l'opposto dell'obiettivo.
+#
+# NON sono bloccati /wp-content/plugins/ ne' /wp-content/themes/: i CSS e
+# i JS di tema e plugin servono a Google per renderizzare le pagine
+# prodotto. Bloccarli e' uno degli errori piu' costosi.
+# ==========================================================================
+
+# --- Risorse di rendering: conferma esplicita ---------------------------
+# Corretti rispetto alla bozza: "/.js$" significa la URL esatta "/.js",
+# perche' il punto e' letterale. La forma giusta e' "/*.js$".
+Allow: /wp-content/uploads/
+Allow: /wp-content/cache/
+Allow: /wp-content/plugins/
+Allow: /wp-content/themes/
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.avif$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.woff$
+Allow: /*.woff2$
+
+Sitemap: https://www.tuttoluce.com/sitemap_index.xml

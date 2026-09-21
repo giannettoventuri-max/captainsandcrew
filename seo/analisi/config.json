@@ -1,0 +1,14 @@
+{
+  "_ATTENZIONE": "Questi slug NON sono stati verificati sul sito reale. Prima di fidarsi dei numeri, eseguire 'python3 analizza_log.py <log> --scopri' e correggere le liste qui sotto con i primi segmenti di percorso realmente presenti.",
+  "_come_verificare": "analizza_log.py --scopri stampa i primi segmenti di percorso ordinati per frequenza e i nomi reali dei parametri di query string.",
+
+  "prodotto": ["prodotto", "product", "shop", "negozio"],
+  "categoria_prodotto": ["categoria-prodotto", "product-category", "categoria"],
+  "tag_prodotto": ["tag-prodotto", "product-tag"],
+  "marchio": ["marca", "marche", "marchio", "marchi", "brand", "brands", "product-brand", "pwb-brand", "yith_product_brand"],
+  "articolo": ["blog", "news", "notizie", "magazine", "guide"],
+  "categoria_blog": ["category", "categoria-blog", "argomenti"],
+  "autore": ["author", "autore"],
+  "transazionale": ["carrello", "cart", "checkout", "pagamento", "cassa", "il-mio-account", "mio-account", "account", "my-account", "lista-dei-desideri", "wishlist", "confronta", "compare", "ordine-ricevuto", "order-received"],
+  "ricerca_path": ["search", "ricerca", "cerca"]
+}
